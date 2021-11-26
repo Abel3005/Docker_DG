@@ -1,0 +1,20 @@
+##docker install
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
+  sudo tee /etc/yum.repos.d/nvidia-docker.repo
+sudo yum -y install nvidia-docker2
+##requirement.txt
+pip3 install numpy && pip3 install cython && pip3 install -r requirement.txt
+##install apex
+git clone https://github.com/NVIDIA/apex
+cd apex
+export TORCH_CUDA_ARCH_LIST="6.0;6.1;6.2;7.0;7.5"  # set the target architecture manually, suggested in issue https://github.com/NVIDIA/apex/issues/605#issuecomment-554453001
+git reset --hard 3fe10b5597ba14a748ebb271a6ab97c09c5701ac
+pip3 install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+cd ..
+
+##install normalSpeed
+git clone https://github.com/hfutcgncas/normalSpeed.git
+cd normalSpeed/normalSpeed
+python3 setup.py install --user
+cd ..
