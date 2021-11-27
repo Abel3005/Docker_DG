@@ -1,16 +1,13 @@
 version: '3.7'
 
 services:
-  ffb6d:
+  soft_teacher:
     build: .
     # loop command
     entrypoint: tail -f /dev/null
     volumes:
-    - /var/lib/docker/volumes/6dpose-data/_data/:/app
     - ./ws:/root/ws
     #dataset path if you pariticipate in hackerton this option has to be blocked 
-    - /home/david/mnt/hackerton/:/mnt/
-    
     working_dir: /root/ws
     privileged: true
     network_mode: host
